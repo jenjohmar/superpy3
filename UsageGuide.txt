@@ -1,0 +1,77 @@
+-----USAGE GUIDE-----
+Superpy Assignment
+by: Jennifer Oerlemans-Bakx
+1 July 2021
+
+COMMANDS
+##python buy.py (+ arguments) = buy product(s)
+The arguments must be given in this order: product name, buy price, buy date, expiry date, and amount. 
+EXAMPLE: python buy.py orange 0.20 2021-6-30 2021-7-5 10
+
+This CL command executes the script stored in buy.py, this code will:
+        1) write the input given to a csv file named "bought.csv".
+		2) assign unique ID to each individual product 
+
+##python sell.py (+ arguments) = sell product(s)
+The arguments must be given in this order: product name, sell price, sell date and amount. 
+EXAMPLE: python sell.py orange 0.40 2021-6-30 5
+
+This CL command executes the script stored in sell.py, this code will:
+        1) check to see if the product and the amount to be sold are in inventory
+		2) if true will write the input given to a csv file named "sold.csv"
+		3) assign unique sold ID to each sold product and also store the bought ID in this csv file
+    
+##python inventory.py (+ arguments)= report inventory
+The arguments must be given in this order: date, product. 
+EXAMPLE: python inventory.py 2021-6-30 all
+-- will report complete inventory on specified date
+EXAMPLE: python inventory.py 2021-6-30 orange
+-- will report inventory for orange on specified date
+
+This CL command executes the script stored in inventory.py, this code will:
+		1) look at all products bought (bought.csv)
+		2) store the products bought in the specified timeframe to a list
+		3) look at all products sold (sold.csv) and store the ones sold in specified timeframe to list
+		4) find expired products, store these to list and stores these in separate csv
+		5) subtract sold and expired products from bought products
+		6) return inventory 
+
+##python turnover.py (+ arguments) = report turnover
+The arguments must be given in this order: start date, end date, product. 
+EXAMPLE: python turnover.py 2021-1-1 2021-6-30 all
+-- will report complete turnover for this timeframe
+EXAMPLE: python turnover.py 2021-1-1 2021-6-30 orange
+-- will report turnover for orange in this timeframe
+
+This CL command executes the script stored in turnover.py, this code will:
+		1) look up products sold (sold.csv) in given timeframe
+		2) add up their sell prices
+		3) return total sum for the timeframe given
+
+##python profit.py (+ arguments)= report profit
+The arguments must be given in this order: start date, end date, product. 
+EXAMPLE: python profit.py 2021-1-1 2021-6-30 all
+-- will report complete profit for this timeframe
+EXAMPLE: python profit.py 2021-1-1 2021-6-30 orange
+-- will report profit for orange in this timeframe
+
+This CL command executes the script stored in profit.py, this code will:	
+		1) look at all products bought (bought.csv)
+		2) store the products bought in the specified timeframe to a list
+		3) look at all products sold (sold.csv) and store the ones sold in specified timeframe to list
+		4) find expired products, store these to list and stores these in separate csv
+		5) look at buy prices of bought products and add these up to total sum bought
+		6) look at sell prices of sold products and add these up to total sum sold
+		7) look at buy prices of expired prices and add these up to total sum expired
+		8) subtracts total bought and expired from total sold = profit
+
+##python advance_time.py (+ arguments)= advances date with specified number of days
+One argument must be given: number of days to be added to current date. 
+EXAMPLE: python advance_time.py 2
+-- will add two days to current date 
+
+This CL command executes the script stored in advance_time.py, this code:
+        1) stores the current date
+		2) adds number of days passed in to current date
+		3) prints result
+

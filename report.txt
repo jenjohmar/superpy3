@@ -1,0 +1,51 @@
+---REPORT--
+Superpy Assignment
+Jennifer Oerlemans-Bakx
+1 July 2021
+
+NOTE TO TEACHER:
+- Function advance_time in advance_time.py only added to fit the requirement in the assignment, not used in my code
+- Writing result of turnover function from turnover.py to .txt file only there to fulfill requirement, no practical use
+
+Technical points:
+
+1. I thought it was important to add functionality to the sell function to make it impossible to store a product as sold (i.e. to sell it) if it's not in the inventory or not available in sufficient amount.
+   To solve this I added the helper function check_inventory(), the result of this helper (a list of inventory listings) is stored to a variable called inventory.
+   The first problem (product not in inventory) I solved by defining a variable Found = False, looping over each item in inventory to see if product is in there and changing Found to True if so and executing the rest.
+   The second problem (cannot sell more of product than in inventory) I solved by adding a counter that counts the number of times an item in inventory contains the product and stores this number.
+   I could then compare the amount to be sold to the count in inventory, if the amount <= the count the sell function is executed. If not, an error message is displayed detailing the maximum number of this product that can be sold. 
+
+   found = False
+   count = 0
+
+   for list_item in inventory:
+        if prod_name in list_item:
+            count += 1
+            found = True
+   if found == True:
+        if amount <= count:
+            for number in range(amount):
+                old_id = new_product_dict["product_id"]
+                new_id = old_id + 1
+                new_product_dict["product_id"] = new_id
+
+                bought_id = find_product_id(prod_name, "bought.csv", (number + 1))
+
+                new_product_dict["bought_id"] = bought_id
+
+                write_to_sold(new_product_dict)
+            print(f"Product sold succesfully!")
+        else:
+            print(f"Amount exceeds product count in inventory! You can currently sell {count} of {prod_name}.")
+
+    else:
+        print(f"Product {prod_name} not in inventory!")
+
+2. I also coded the sell function so that time-travel shopping is not possible. Via the check_inventory function in the sell function, the inventory of the **current date** is returned, making it impossible to go back in time and sell products that were sold on a later date.
+   inventory = check_inventory(current_date, prod_name) 
+
+2. I decided that the inventory should only reflect those products fit to be sold, i.e. expired products are not in the inventory.
+   Therefore, each time the report inventory function get_inventory() is called, the helper function in it called get_expired() filters out the expired products from the result.
+   The report profit also uses get_expired() to subtract the sum of all expired products from the profit. The get_expired functions takes the latest date passed into the parent function to reflect inventory, profit or turnover correctly for the given timeframe.
+
+3. in the code of profit.py i used an early return to correctly execute the rather complicated nested if-else and for loops, it would not function properly without it so I'm glad I discovered it!    
